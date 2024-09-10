@@ -298,6 +298,11 @@ public class MapManager extends ViewGroupManager<MapView> {
         view.setMoveOnMarkerPress(moveOnPress);
     }
 
+    @ReactProp(name = "disableOnPoiPress", defaultBoolean = false)
+    public void disableOnPoiPress(MapView view, boolean onPoiPress) {
+        view.setOnPoiPress(onPoiPress);
+    }
+
     @ReactProp(name = "loadingBackgroundColor", customType = "Color")
     public void setLoadingBackgroundColor(MapView view, @Nullable Integer loadingBackgroundColor) {
         view.setLoadingBackgroundColor(loadingBackgroundColor);

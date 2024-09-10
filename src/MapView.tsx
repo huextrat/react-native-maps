@@ -277,6 +277,15 @@ export type MapViewProps = ViewProps & {
   moveOnMarkerPress?: boolean;
 
   /**
+   * If `true` POI won't be clickable.
+   *
+   * @default false
+   * @platform iOS: Not supported
+   * @platform Android: Supported
+   */
+  disableOnPoiPress?: boolean;
+
+  /**
    * Callback that is called when a callout is tapped by the user.
    *
    * @platform iOS: Apple Maps only

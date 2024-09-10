@@ -103,6 +103,7 @@ public class MapView extends com.google.android.gms.maps.MapView implements Goog
   private boolean showUserLocation = false;
   private boolean handlePanDrag = false;
   private boolean moveOnMarkerPress = true;
+  private boolean disableOnPoiPress = false;
   private boolean cacheEnabled = false;
   private ReadableMap initialRegion;
   private ReadableMap region;
@@ -247,10 +248,9 @@ public class MapView extends com.google.android.gms.maps.MapView implements Goog
     circleCollection = circleManager.newCollection();
     groundOverlayManager = new GroundOverlayManager(map);
     groundOverlayCollection = groundOverlayManager.newCollection();
-
     markerCollection.setInfoWindowAdapter(this);
     markerCollection.setOnMarkerDragListener(this);
-    this.map.setOnPoiClickListener(this);
+
     this.map.setOnIndoorStateChangeListener(this);
 
     applyBridgedProps();
@@ -258,6 +258,10 @@ public class MapView extends com.google.android.gms.maps.MapView implements Goog
     manager.pushEvent(context, this, "onMapReady", new WritableNativeMap());
 
     final MapView view = this;
+
+    if (!view.disableOnPoiPress) {
+      this.map.setOnPoiClickListener(this);
+    }
 
     map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
       @Override
@@ -674,6 +678,10 @@ public static CameraPosition cameraPositionFromMap(ReadableMap camera){
 
   public void setMoveOnMarkerPress(boolean moveOnPress) {
     this.moveOnMarkerPress = moveOnPress;
+  }
+
+  public void setOnPoiPress(boolean onPoiPress) {
+    this.disableOnPoiPress = onPoiPress;
   }
 
   public void setLoadingBackgroundColor(Integer loadingBackgroundColor) {
